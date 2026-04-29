@@ -1,0 +1,358 @@
+/* HiveFive Design System — Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,400&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Font Families */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* HiveFive Color System */
+  /* Honey Palette */
+  --honey-50: #FEF9EE;
+  --honey-100: #FDF0D5;
+  --honey-200: #FBE0AA;
+  --honey-300: #F8CB74;
+  --honey-400: #F5B540;
+  --honey-500: #E9A020;
+  --honey-600: #C47F14;
+  --honey-700: #9A5F10;
+  --honey-800: #6E430E;
+  --honey-900: #47290A;
+
+  /* Charcoal Palette */
+  --charcoal-50: #F6F6F5;
+  --charcoal-100: #ECEAE8;
+  --charcoal-200: #D6D4D0;
+  --charcoal-300: #BFBCB6;
+  --charcoal-400: #8C887F;
+  --charcoal-500: #5C584F;
+  --charcoal-600: #403D37;
+  --charcoal-700: #2D2B27;
+  --charcoal-800: #1E1D1A;
+  --charcoal-900: #131210;
+
+  /* Cream Palette */
+  --cream-50: #FEFDFB;
+  --cream-100: #FDFBF5;
+  --cream-200: #FAF6EA;
+  --cream-300: #F6F1DD;
+  --cream-400: #F1EBD0;
+  --cream-500: #E8E0B8;
+
+  /* Semantic Colors */
+  --semantic-success: #348B5A;
+  --semantic-warning: #D4882A;
+  --semantic-error: #C93B3B;
+  --semantic-info: #3478B8;
+
+  /* Default Tailwind v4 mappings for ShadCN compatibility */
+  --background: var(--cream-50);
+  --foreground: var(--charcoal-900);
+  --card: var(--cream-50);
+  --card-foreground: var(--charcoal-900);
+  --popover: var(--cream-50);
+  --popover-foreground: var(--charcoal-900);
+  --primary: var(--honey-500);
+  --primary-foreground: var(--charcoal-900);
+  --secondary: var(--charcoal-100);
+  --secondary-foreground: var(--charcoal-900);
+  --muted: var(--charcoal-100);
+  --muted-foreground: var(--charcoal-400);
+  --accent: var(--honey-50);
+  --accent-foreground: var(--charcoal-900);
+  --destructive: var(--semantic-error);
+  --destructive-foreground: #ffffff;
+  --border: var(--charcoal-100);
+  --input: var(--charcoal-200);
+  --ring: var(--honey-500);
+  --radius: 10px;
+}
+
+/* Hide scrollbar globally while keeping scroll functional */
+html {
+  scrollbar-width: none;          /* Firefox */
+}
+html::-webkit-scrollbar {
+  display: none;                  /* Chrome, Safari, Edge */
+}
+
+@theme inline {
+  /* Font families */
+  --font-family-display: var(--font-display);
+  --font-family-sans: var(--font-sans);
+  --font-family-mono: var(--font-mono);
+
+  /* Honey colors */
+  --color-honey-50: var(--honey-50);
+  --color-honey-100: var(--honey-100);
+  --color-honey-200: var(--honey-200);
+  --color-honey-300: var(--honey-300);
+  --color-honey-400: var(--honey-400);
+  --color-honey-500: var(--honey-500);
+  --color-honey-600: var(--honey-600);
+  --color-honey-700: var(--honey-700);
+  --color-honey-800: var(--honey-800);
+  --color-honey-900: var(--honey-900);
+
+  /* Charcoal colors */
+  --color-charcoal-50: var(--charcoal-50);
+  --color-charcoal-100: var(--charcoal-100);
+  --color-charcoal-200: var(--charcoal-200);
+  --color-charcoal-300: var(--charcoal-300);
+  --color-charcoal-400: var(--charcoal-400);
+  --color-charcoal-500: var(--charcoal-500);
+  --color-charcoal-600: var(--charcoal-600);
+  --color-charcoal-700: var(--charcoal-700);
+  --color-charcoal-800: var(--charcoal-800);
+  --color-charcoal-900: var(--charcoal-900);
+
+  /* Cream colors */
+  --color-cream-50: var(--cream-50);
+  --color-cream-100: var(--cream-100);
+  --color-cream-200: var(--cream-200);
+  --color-cream-300: var(--cream-300);
+  --color-cream-400: var(--cream-400);
+  --color-cream-500: var(--cream-500);
+
+  /* Semantic colors */
+  --color-semantic-success: var(--semantic-success);
+  --color-semantic-warning: var(--semantic-warning);
+  --color-semantic-error: var(--semantic-error);
+  --color-semantic-info: var(--semantic-info);
+
+  /* ShadCN compatibility colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* Box shadows */
+  --shadow-sm: 0 1px 3px rgba(19, 18, 16, 0.05), 0 1px 2px rgba(19, 18, 16, 0.03);
+  --shadow-md: 0 4px 12px rgba(19, 18, 16, 0.07), 0 1px 3px rgba(19, 18, 16, 0.04);
+  --shadow-lg: 0 12px 32px rgba(19, 18, 16, 0.09), 0 2px 6px rgba(19, 18, 16, 0.04);
+  --shadow-xl: 0 24px 56px rgba(19, 18, 16, 0.12), 0 4px 12px rgba(19, 18, 16, 0.05);
+  --shadow-glow: 0 0 20px rgba(233, 160, 32, 0.25), 0 0 60px rgba(233, 160, 32, 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-cream-50 text-charcoal-900 font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typography defaults - only apply to elements without explicit text classes */
+  :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
+    h1 {
+      @apply text-2xl font-bold tracking-tight;
+    }
+
+    h2 {
+      @apply text-xl font-bold;
+    }
+
+    h3 {
+      @apply text-lg font-bold;
+    }
+
+    h4 {
+      @apply text-[15px] font-bold;
+    }
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Cosmetic Frame Animations ── */
+/* Gradient-ring technique: the ring is a separate layer that can freely animate */
+
+/* Spin — rotates the gradient ring (used by Solar Flare, Prismatic Crown) */
+@keyframes frame-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Pulse — breathes the ring scale + glow (Ocean Pulse) */
+@keyframes frame-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.06);
+    filter: brightness(1.15);
+  }
+}
+
+/* Breathe — gentle glow swell (Cherry Blossom) */
+@keyframes frame-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.88;
+  }
+}
+
+/* Flicker — neon stutter (Electric Volt) */
+@keyframes frame-flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  10% { opacity: 0.7; }
+  20% { opacity: 1; transform: scale(1.03); }
+  40% { opacity: 0.85; }
+  60% { opacity: 1; transform: scale(1.02); }
+  80% { opacity: 0.75; transform: scale(1); }
+  90% { opacity: 1; transform: scale(1.04); }
+}
+
+/* Shimmer — brightness sweep (Frost Crystal) */
+@keyframes frame-shimmer {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  25% { filter: brightness(1.25) saturate(1.1); }
+  50% { filter: brightness(0.95) saturate(1); }
+  75% { filter: brightness(1.2) saturate(1.15); }
+}
+
+/* Aurora — hue-shift + scale (Void Eclipse) */
+@keyframes frame-aurora {
+  0% { filter: hue-rotate(0deg); transform: scale(1); }
+  25% { filter: hue-rotate(25deg); transform: scale(1.03); }
+  50% { filter: hue-rotate(-15deg); transform: scale(1); }
+  75% { filter: hue-rotate(15deg); transform: scale(1.02); }
+  100% { filter: hue-rotate(0deg); transform: scale(1); }
+}
+
+.frame-spin { animation: frame-spin 3.5s linear infinite; }
+.frame-spin-slow { animation: frame-spin 6s linear infinite; }
+.frame-pulse { animation: frame-pulse 2.5s ease-in-out infinite; }
+.frame-breathe { animation: frame-breathe 3s ease-in-out infinite; }
+.frame-flicker { animation: frame-flicker 2s ease-in-out infinite; }
+.frame-shimmer { animation: frame-shimmer 3s ease-in-out infinite; }
+.frame-aurora { animation: frame-aurora 4s ease-in-out infinite; }
+
+/* Hover spin: fidget-spinner effect on hover */
+.frame-ring {
+  transition: filter 0.35s ease;
+}
+.avatar-frame:hover .frame-ring {
+  animation: frame-hover-spin 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) infinite !important;
+  filter: brightness(1.25) saturate(1.2);
+}
+
+@keyframes frame-hover-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Badge Animation ── */
+
+@keyframes badge-apex-holo {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.badge-apex-holo {
+  background: linear-gradient(90deg, #EF4444, #F97316, #EAB308, #22C55E, #3B82F6, #A855F7, #EF4444);
+  background-size: 300% 100%;
+  animation: badge-apex-holo 3s linear infinite;
+}
+
+/* ── Theme Banner Animations ── */
+
+/* Gentle side-to-side gradient drift (basic tier) */
+@keyframes theme-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Drift + subtle brightness pulse (mid tier) */
+@keyframes theme-pulse {
+  0%, 100% { background-position: 0% 50%; filter: brightness(1); }
+  50% { background-position: 100% 50%; filter: brightness(1.12); }
+}
+
+/* Diagonal wandering path (premium tier) */
+@keyframes theme-wander {
+  0%, 100% { background-position: 0% 0%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
+/* Dramatic hue-shifting aurora (legendary) */
+@keyframes theme-aurora {
+  0%, 100% { background-position: 0% 50%; filter: hue-rotate(0deg) brightness(1); }
+  33% { background-position: 100% 0%; filter: hue-rotate(20deg) brightness(1.1); }
+  66% { background-position: 50% 100%; filter: hue-rotate(-15deg) brightness(1.05); }
+}
+
+.theme-drift {
+  background-size: 200% 200%;
+  animation: theme-drift 18s ease-in-out infinite;
+}
+
+.theme-pulse {
+  background-size: 200% 200%;
+  animation: theme-pulse 12s ease-in-out infinite;
+}
+
+.theme-wander {
+  background-size: 300% 300%;
+  animation: theme-wander 14s ease-in-out infinite;
+}
+
+.theme-aurora {
+  background-size: 300% 300%;
+  animation: theme-aurora 8s ease-in-out infinite;
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}

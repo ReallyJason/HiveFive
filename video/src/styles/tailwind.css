@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Honey — warm amber palette */
+  --color-honey-50: #FEF9EE;
+  --color-honey-100: #FDF0D5;
+  --color-honey-200: #FBE0AA;
+  --color-honey-300: #F8CB74;
+  --color-honey-400: #F5B540;
+  --color-honey-500: #E9A020;
+  --color-honey-600: #C47F14;
+  --color-honey-700: #9A5F10;
+  --color-honey-800: #6E430E;
+  --color-honey-900: #47290A;
+
+  /* Charcoal — neutral dark palette */
+  --color-charcoal-50: #F6F6F5;
+  --color-charcoal-100: #ECEAE8;
+  --color-charcoal-200: #D6D4D0;
+  --color-charcoal-300: #BFBCB6;
+  --color-charcoal-400: #8C887F;
+  --color-charcoal-500: #5C584F;
+  --color-charcoal-600: #403D37;
+  --color-charcoal-700: #2D2B27;
+  --color-charcoal-800: #1E1D1A;
+  --color-charcoal-900: #131210;
+
+  /* Cream — warm light palette */
+  --color-cream-50: #FEFDFB;
+  --color-cream-100: #FDFBF5;
+  --color-cream-200: #FAF6EA;
+  --color-cream-300: #F6F1DD;
+  --color-cream-400: #F1EBD0;
+  --color-cream-500: #E8E0B8;
+
+  /* Font families */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "DM Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+
+  /* Border radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+}
