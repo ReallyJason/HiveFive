@@ -286,6 +286,7 @@ export function EditService() {
     setFormData({ ...formData, included: newIncluded });
   };
 
+  /* AI Polish disabled
   const handleAiRewrite = async () => {
     if (isRewriting || !formData.description.trim()) return;
     setIsRewriting(true);
@@ -337,6 +338,7 @@ export function EditService() {
       setIsSuggestingIncluded(false);
     }
   };
+  */
 
   return (
     <div className="min-h-screen bg-cream-50">
@@ -499,6 +501,7 @@ export function EditService() {
                     </p>
                   )}
 
+                  {/* AI Polish disabled
                   <div className="mt-3 flex items-center gap-2 flex-wrap">
                     <button
                       type="button"
@@ -566,6 +569,7 @@ export function EditService() {
                         : 'Let AI sharpen your description'}
                     </span>
                   </div>
+                  */}
                 </div>
 
                 <div>
@@ -610,6 +614,7 @@ export function EditService() {
                       </button>
                     )}
 
+                    {/* AI Suggest disabled
                     <span className="text-charcoal-200">|</span>
 
                     <button
@@ -637,6 +642,7 @@ export function EditService() {
                         </>
                       )}
                     </button>
+                    */}
                   </div>
                   {formData.included.length > 10 && (
                     <p className="mt-2 text-xs text-red-600 flex items-center gap-1">

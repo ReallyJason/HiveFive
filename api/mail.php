@@ -11,7 +11,7 @@
  * certain special characters.
  */
 
-define('HIVEFIVE_FROM_EMAIL', 'hivefive@cse.buffalo.edu');
+define('HIVEFIVE_FROM_EMAIL', 'no-reply@jasonhusoftware.com');
 define('HIVEFIVE_FROM_NAME',  'HiveFive');
 
 /**

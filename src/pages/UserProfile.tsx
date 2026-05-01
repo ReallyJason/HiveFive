@@ -132,7 +132,7 @@ export function UserProfile() {
         const profileRes = await apiGet<{ user: ProviderData; stats: ProviderStats }>('/users/profile.php', { username });
         if (cancelled) return;
 
-        // TODO: backend should return role in profile response; hide admin from non-admins
+        // Admins are hidden from non-admin users via backend role field
         if (profileRes.user.role === 'admin' && currentUser?.role !== 'admin') {
           setError('not_found');
           setLoading(false);

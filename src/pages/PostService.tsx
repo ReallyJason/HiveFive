@@ -209,6 +209,7 @@ export function PostService() {
     setFormData({ ...formData, included: newIncluded });
   };
 
+  /* AI Polish disabled
   const handleAiRewrite = async () => {
     if (isRewriting || !formData.description.trim()) return;
     setIsRewriting(true);
@@ -260,6 +261,7 @@ export function PostService() {
       setIsSuggestingIncluded(false);
     }
   };
+  */
 
   return (
     <div className="min-h-screen bg-cream-50">
@@ -452,6 +454,7 @@ export function PostService() {
                     </p>
                   )}
 
+                  {/* AI Polish disabled
                   <div className="mt-3 flex items-center gap-2 flex-wrap">
                     <button
                       type="button"
@@ -519,6 +522,7 @@ export function PostService() {
                         : 'Write a rough draft, then let AI sharpen it'}
                     </span>
                   </div>
+                  */}
                 </div>
 
                 <div>
@@ -563,6 +567,7 @@ export function PostService() {
                       </button>
                     )}
 
+                    {/* AI Suggest disabled
                     <span className="text-charcoal-200">|</span>
 
                     <button
@@ -590,6 +595,7 @@ export function PostService() {
                         </>
                       )}
                     </button>
+                    */}
                   </div>
                   {formData.included.length > 10 && (
                     <p className="mt-2 text-xs text-red-600 flex items-center gap-1">
