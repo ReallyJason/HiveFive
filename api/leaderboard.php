@@ -198,7 +198,7 @@ $user_sql = "
     FROM users u
     LEFT JOIN reviews rv ON rv.provider_id = u.id
     {$cosmetic_join}
-    WHERE u.id IN ({$placeholders}) AND u.deactivated_at IS NULL
+    WHERE u.id IN ({$placeholders}) AND u.deactivated_at IS NULL AND u.role != 'admin'
     GROUP BY u.id
 ";
 $stmt = $pdo->prepare($user_sql);

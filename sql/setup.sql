@@ -391,3 +391,11 @@ INSERT INTO system_settings (setting_key, setting_value) VALUES
     ('rate_limit_enabled', '1'),
     ('rate_limit_max_attempts', '10'),
     ('rate_limit_window_minutes', '15');
+
+-- 20. php_sessions (Ensures users stay logged in across container restarts on Railway)
+CREATE TABLE php_sessions (
+    id VARCHAR(128) NOT NULL PRIMARY KEY,
+    data BLOB NOT NULL,
+    last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_last_accessed (last_accessed)
+);

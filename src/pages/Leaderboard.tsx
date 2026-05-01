@@ -56,8 +56,7 @@ export function Leaderboard() {
         if (category !== 'All') params.category = category;
         const data = await apiGet<{ leaderboard: LeaderboardEntry[] }>('/leaderboard.php', params);
         if (cancelled) return;
-        // TODO: backend should exclude admin from leaderboard; filtering here as fallback
-        setEntries(data.leaderboard.filter(e => e.role !== 'admin'));
+        setEntries(data.leaderboard);
       } catch (err) {
         if (cancelled) return;
         setError(err instanceof ApiError ? err.message : 'Failed to load leaderboard');

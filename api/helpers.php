@@ -17,7 +17,8 @@ function cors() {
     header('Content-Type: application/json');
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
     $allowed = ['http://localhost:3000', 'http://localhost:5173',
-                'https://aptitude.cse.buffalo.edu', 'https://cattle.cse.buffalo.edu'];
+                'https://aptitude.cse.buffalo.edu', 'https://cattle.cse.buffalo.edu',
+                'https://jasonhusoftware.com', 'https://www.jasonhusoftware.com'];
     if (in_array($origin, $allowed, true)) {
         header("Access-Control-Allow-Origin: $origin");
     }
@@ -1102,12 +1103,12 @@ function create_order_event_message(
 }
 
 /**
- * Build a cosmetics object from a DB row that includes frame/badge/theme JOINed columns.
- * Expected columns: frame_metadata, badge_metadata, theme_metadata (JSON strings from shop_items.metadata)
- * Returns: ['frame' => FrameData|null, 'badge' => BadgeData|null, 'theme' => ThemeData|null]
+ * Build a cosmetics object from a DB row that includes frame/badge JOINed columns.
+ * Expected columns: frame_metadata, badge_metadata (JSON strings from shop_items.metadata)
+ * Returns: ['frame' => FrameData|null, 'badge' => BadgeData|null]
  */
 function build_cosmetics_from_row(array $row): array {
-    $cosmetics = ['frame' => null, 'badge' => null, 'theme' => null];
+    $cosmetics = ['frame' => null, 'badge' => null];
 
     // When HiveShop is disabled, hide equipped cosmetics site-wide
     // without mutating saved active_* IDs in the database.
@@ -1118,8 +1119,6 @@ function build_cosmetics_from_row(array $row): array {
     if (!empty($row['frame_metadata'])) {
         $fm = json_decode($row['frame_metadata'], true) ?: [];
         $cosmetics['frame'] = [
-            'id'            => (int) ($row['frame_id'] ?? $row['active_frame_id'] ?? 0),
-            'name'          => $row['frame_name'] ?? '',
             'gradient'      => $fm['gradient'] ?? '',
             'glow'          => $fm['glow'] ?? '',
             'css_animation' => $fm['css_animation'] ?? null,
@@ -1130,8 +1129,6 @@ function build_cosmetics_from_row(array $row): array {
     if (!empty($row['badge_metadata'])) {
         $bm = json_decode($row['badge_metadata'], true) ?: [];
         $cosmetics['badge'] = [
-            'id'            => (int) ($row['badge_id'] ?? $row['active_badge_id'] ?? 0),
-            'name'          => $row['badge_name'] ?? '',
             'tag'           => $bm['tag'] ?? '',
             'bg_color'      => $bm['bg_color'] ?? '#E9A020',
             'text_color'    => $bm['text_color'] ?? '#131210',
@@ -1140,30 +1137,17 @@ function build_cosmetics_from_row(array $row): array {
         ];
     }
 
-    if (!empty($row['theme_metadata'])) {
-        $tm = json_decode($row['theme_metadata'], true) ?: [];
-        $cosmetics['theme'] = [
-            'id'              => (int) ($row['theme_id'] ?? $row['active_theme_id'] ?? 0),
-            'name'            => $row['theme_name'] ?? '',
-            'banner_gradient' => $tm['banner_gradient'] ?? '',
-            'accent_color'    => $tm['accent_color'] ?? '#E9A020',
-            'text_color'      => $tm['text_color'] ?? '#FFFFFF',
-            'css_animation'   => $tm['css_animation'] ?? null,
-        ];
-    }
-
     return $cosmetics;
 }
 
 /**
- * SQL fragment to LEFT JOIN frame, badge, and theme shop_items for a given user alias.
+ * SQL fragment to LEFT JOIN frame and badge shop_items for a given user alias.
  * Usage: $sql .= cosmetic_join_sql('u');
  */
 function cosmetic_join_sql(string $user_alias): string {
     return "
         LEFT JOIN shop_items frame_item ON frame_item.id = {$user_alias}.active_frame_id
         LEFT JOIN shop_items badge_item ON badge_item.id = {$user_alias}.active_badge_id
-        LEFT JOIN shop_items theme_item ON theme_item.id = {$user_alias}.active_theme_id
     ";
 }
 
@@ -1171,11 +1155,7 @@ function cosmetic_join_sql(string $user_alias): string {
  * SQL SELECT columns for cosmetic metadata.
  */
 function cosmetic_select_sql(): string {
-    return "
-        frame_item.id AS frame_id, frame_item.name AS frame_name, frame_item.metadata AS frame_metadata,
-        badge_item.id AS badge_id, badge_item.name AS badge_name, badge_item.metadata AS badge_metadata,
-        theme_item.id AS theme_id, theme_item.name AS theme_name, theme_item.metadata AS theme_metadata
-    ";
+    return "frame_item.metadata AS frame_metadata, badge_item.metadata AS badge_metadata";
 }
 
 /**

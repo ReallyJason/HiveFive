@@ -4,14 +4,15 @@ cat > /var/www/html/api/db_config.php <<'PHP'
 <?php
 date_default_timezone_set('UTC');
 
-$DB_HOST = $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?: '127.0.0.1';
-$DB_NAME = $_ENV['DB_NAME'] ?? getenv('DB_NAME') ?: 'cse442_2026_spring_team_j_db';
-$DB_USER = $_ENV['DB_USER'] ?? getenv('DB_USER') ?: 'intesarj';
-$DB_PASS = $_ENV['DB_PASS'] ?? getenv('DB_PASS') ?: '50548218';
+$DB_HOST = $_ENV['DB_HOST'] ?? $_ENV['MYSQLHOST'] ?? getenv('DB_HOST') ?: '127.0.0.1';
+$DB_PORT = $_ENV['DB_PORT'] ?? $_ENV['MYSQLPORT'] ?? getenv('DB_PORT') ?: '3306';
+$DB_NAME = $_ENV['DB_NAME'] ?? $_ENV['MYSQLDATABASE'] ?? getenv('DB_NAME') ?: 'cse442_2026_spring_team_j_db';
+$DB_USER = $_ENV['DB_USER'] ?? $_ENV['MYSQLUSER'] ?? getenv('DB_USER') ?: 'intesarj';
+$DB_PASS = $_ENV['DB_PASS'] ?? $_ENV['MYSQLPASSWORD'] ?? getenv('DB_PASS') ?: '50548218';
 
 try {
     $pdo = new PDO(
-        "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
+        "mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;charset=utf8mb4",
         $DB_USER,
         $DB_PASS,
         [
@@ -28,18 +29,11 @@ try {
 }
 PHP
 
-# Generate ai_config.php from environment variables (if API key is provided)
-OPENROUTER_KEY="${OPENROUTER_API_KEY:-$(printenv OPENROUTER_API_KEY 2>/dev/null)}"
-if [ -n "$OPENROUTER_KEY" ]; then
-cat > /var/www/html/api/ai_config.php <<PHP
-<?php
-\$OPENROUTER_API_KEY = '$OPENROUTER_KEY';
-\$OPENROUTER_MODEL   = '${OPENROUTER_MODEL:-google/gemini-2.0-flash-001}';
-PHP
-echo "ai_config.php generated from environment variables."
-else
-echo "WARNING: OPENROUTER_API_KEY not set — AI features will be disabled."
-fi
+# AI features disabled
+# OPENROUTER_KEY="${OPENROUTER_API_KEY:-$(printenv OPENROUTER_API_KEY 2>/dev/null)}"
+# if [ -n "$OPENROUTER_KEY" ]; then
+# ...
+# fi
 
 # Start Apache
 exec apache2-foreground
