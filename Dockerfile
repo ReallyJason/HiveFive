@@ -12,6 +12,10 @@ RUN npm run build
 # Stage 2: PHP + Apache serving both frontend and API
 FROM php:8.2-apache
 
+# Fix "More than one MPM loaded" error by ensuring only prefork is enabled
+# mod_php is not compatible with mpm_event or mpm_worker
+RUN a2dismod mpm_event mpm_worker || true && a2enmod mpm_prefork
+
 # Enable Apache modules
 RUN a2enmod rewrite headers
 
