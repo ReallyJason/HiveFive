@@ -56,5 +56,6 @@ export const DOMAIN_TO_UNIVERSITY: Record<string, string> = {
 /** Extract domain from email and return matching university, or empty string. */
 export function universityFromEmail(email: string): string {
   const domain = email.split('@')[1]?.toLowerCase();
-  return (domain && DOMAIN_TO_UNIVERSITY[domain]) || '';
+  if (!domain) return '';
+  return DOMAIN_TO_UNIVERSITY[domain] || 'Not a University student';
 }
