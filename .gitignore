@@ -1,0 +1,34 @@
+node_modules/
+dist/
+build/
+
+# DB credentials (keep the example, ignore the real one)
+api/db_config.php
+
+# AI / OpenRouter credentials (keep the example, ignore the real one)
+api/ai_config.php
+
+# User-uploaded files
+api/uploads/profiles/*
+api/uploads/services/*
+!api/uploads/profiles/.gitkeep
+!api/uploads/services/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+
+# Admin credentials (never commit)
+sql/admin-setup.sql
+
+# Local development scripts
+.local/
+.playwright-cli/
+.superpowers/
+
+# Media files
+public/services/png
+public/profiles/*
