@@ -17,7 +17,7 @@ $bind_params = $target_username !== '' ? [':username' => $target_username] : [':
 
 $stmt = $pdo->prepare("
     SELECT
-        u.id, u.email, u.username, u.first_name, u.last_name, u.bio, u.major, u.year, u.university,
+        u.id, u.email, u.username, u.first_name, u.last_name, u.bio, u.job, u.is_student, u.university,
         u.profile_image, u.verified, u.onboarding_done, u.wants_to_offer, u.wants_to_find,
         u.active_frame_id, u.active_badge_id, u.active_theme_id,
         u.created_at,
@@ -207,8 +207,8 @@ json_response([
         'first_name'      => $row['first_name'],
         'last_name'       => $row['last_name'],
         'bio'             => $row['bio'],
-        'major'           => $row['major'],
-        'year'            => $row['year'],
+        'job'             => $row['job'],
+        'is_student'      => (bool) $row['is_student'],
         'university'      => $resolved_university,
         'profile_image'   => $row['profile_image'],
         'verified'        => (bool) $row['verified'],

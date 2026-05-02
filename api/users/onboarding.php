@@ -7,38 +7,29 @@ require_method('POST');
 $user_id = require_auth();
 $data    = get_json_body();
 
-$major = trim($data['major'] ?? '');
-$year  = trim($data['year'] ?? '');
-$bio   = trim($data['bio'] ?? '');
-
-$valid_years = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'];
-
-if ($major === '') {
-    json_response(['error' => 'Please enter what you\'re studying'], 422);
-}
-if (!in_array($year, $valid_years, true)) {
-    json_response(['error' => 'Please select a valid academic year'], 422);
-}
+$job        = trim($data['job'] ?? '');
+$is_student = isset($data['is_student']) ? (int) $data['is_student'] : 0;
+$bio        = trim($data['bio'] ?? '');
 
 $stmt = $pdo->prepare("
     UPDATE users
-    SET major          = :major,
-        year           = :year,
-        bio            = :bio,
+    SET job             = :job,
+        is_student      = :is_student,
+        bio             = :bio,
         onboarding_done = 1
     WHERE id = :id
 ");
 $stmt->execute([
-    ':major' => $major,
-    ':year'  => $year,
-    ':bio'   => $bio,
-    ':id'    => $user_id,
+    ':job'        => $job,
+    ':is_student' => $is_student,
+    ':bio'        => $bio,
+    ':id'         => $user_id,
 ]);
 
 // Return updated user
 $stmt = $pdo->prepare("
     SELECT
-        id, email, username, first_name, last_name, bio, major, year, university,
+        id, email, username, first_name, last_name, bio, job, is_student, university,
         profile_image, hivecoin_balance, verified, onboarding_done,
         wants_to_offer, wants_to_find,
         notify_orders, notify_messages, notify_proposals,
@@ -57,8 +48,8 @@ json_response(['user' => [
     'first_name'       => $user['first_name'],
     'last_name'        => $user['last_name'],
     'bio'              => $user['bio'],
-    'major'            => $user['major'],
-    'year'             => $user['year'],
+    'job'              => $user['job'],
+    'is_student'       => (bool) $user['is_student'],
     'university'       => $resolved_university,
     'profile_image'    => $user['profile_image'],
     'hivecoin_balance' => (float) $user['hivecoin_balance'],

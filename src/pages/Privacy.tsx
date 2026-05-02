@@ -75,7 +75,7 @@ export default function Privacy() {
               <ul style={listStyle}>
                 <li>Your name, .edu email address, and university</li>
                 <li>Your username and hashed password (we never see or store your actual password)</li>
-                <li>Your major, graduation year, and bio (optional, provided during onboarding)</li>
+                <li>Your job title/occupation, student status, and bio (optional, provided during onboarding)</li>
                 <li>Profile photo (optional)</li>
               </ul>
 
@@ -137,7 +137,7 @@ export default function Privacy() {
             <div style={bodyStyle}>
               <p><strong>Other Users</strong> can see:</p>
               <ul style={listStyle}>
-                <li>Your public profile (name, username, university, major, bio, photo)</li>
+                <li>Your public profile (name, username, university, job title, student status, bio, photo)</li>
                 <li>Your service listings and reviews</li>
                 <li>Your average rating</li>
               </ul>

@@ -19,7 +19,7 @@ if (!empty($_SESSION['impersonating_user_id'])) {
 $stmt = $pdo->prepare("
     SELECT
         u.id, u.email, u.username, u.first_name, u.last_name,
-        u.bio, u.major, u.year, u.university, u.profile_image,
+        u.bio, u.job, u.is_student, u.university, u.profile_image,
         u.hivecoin_balance, u.verified, u.onboarding_done,
         u.wants_to_offer, u.wants_to_find,
         u.notify_orders, u.notify_messages, u.notify_proposals,
@@ -100,8 +100,8 @@ json_response(['user' => [
     'first_name'       => $row['first_name'],
     'last_name'        => $row['last_name'],
     'bio'              => $row['bio'],
-    'major'            => $row['major'],
-    'year'             => $row['year'],
+    'job'              => $row['job'],
+    'is_student'       => (bool) $row['is_student'],
     'university'       => $resolved_university,
     'profile_image'    => $row['profile_image'],
     'hivecoin_balance' => (float) $row['hivecoin_balance'],

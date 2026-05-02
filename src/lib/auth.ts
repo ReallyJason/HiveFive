@@ -47,8 +47,8 @@ export interface User {
   first_name: string;
   last_name: string;
   bio: string | null;
-  major: string;
-  year: string | null;
+  job: string;
+  is_student: boolean;
   university: string;
   profile_image: string;
   hivecoin_balance: number;

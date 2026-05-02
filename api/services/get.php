@@ -18,7 +18,7 @@ $stmt = $pdo->prepare(
             s.pricing_type, s.price, s.custom_price_unit, s.avg_rating, s.review_count, s.is_active, s.created_at,
             u.first_name AS provider_first_name, u.last_name AS provider_last_name,
             u.username AS provider_username, u.profile_image AS provider_profile_image,
-            u.bio AS provider_bio, u.major AS provider_major, u.university AS provider_university,
+            u.bio AS provider_bio, u.job AS provider_job, u.is_student AS provider_is_student, u.university AS provider_university,
             u.verified AS provider_verified,
             u.last_verified_at AS provider_last_verified_at,
             u.deactivated_at AS provider_deactivated_at,
