@@ -35,5 +35,11 @@ PHP
 # ...
 # fi
 
+# Configure Apache to listen on Railway's $PORT (default 80)
+if [ -n "$PORT" ]; then
+    sed -i "s/Listen 80/Listen $PORT/" /etc/apache2/ports.conf
+    sed -i "s/<VirtualHost \*:80>/<VirtualHost *:$PORT>/" /etc/apache2/sites-enabled/000-default.conf
+fi
+
 # Start Apache
 exec apache2-foreground
