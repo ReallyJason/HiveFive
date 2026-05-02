@@ -18,7 +18,8 @@ function cors() {
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
     $allowed = ['http://localhost:3000', 'http://localhost:5173',
                 'https://aptitude.cse.buffalo.edu', 'https://cattle.cse.buffalo.edu',
-                'https://jasonhusoftware.com', 'https://www.jasonhusoftware.com'];
+                'https://jasonhusoftware.com', 'https://www.jasonhusoftware.com',
+                'https://hive.jasonhusoftware.com'];
     if (in_array($origin, $allowed, true)) {
         header("Access-Control-Allow-Origin: $origin");
     }
