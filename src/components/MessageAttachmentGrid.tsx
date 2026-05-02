@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Download, FileText, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { resolveAssetUrl } from '../lib/assetUrl';
 import { formatFileSize } from '../lib/fileUploads';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 export interface MessageAttachmentItem {
   id: number;

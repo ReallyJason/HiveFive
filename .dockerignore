@@ -1,0 +1,9 @@
+node_modules
+build
+dist
+.git
+sql
+README.md
+.DS_Store
+*.log
+api/db_config.php

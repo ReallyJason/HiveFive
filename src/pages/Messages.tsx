@@ -16,7 +16,7 @@ import { CharacterLimitHint } from '../components/CharacterLimitHint';
 import { playAlertSound } from '../lib/inAppAlerts';
 import { MessageAttachmentGrid, type MessageAttachmentItem } from '../components/MessageAttachmentGrid';
 import { CHAT_ATTACHMENT_ACCEPT, formatFileSize, getChatAttachmentMeta, readFileAsDataUrl } from '../lib/fileUploads';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { sanitizeContent } from '../lib/contentFilter';
 
 interface ConversationContext {

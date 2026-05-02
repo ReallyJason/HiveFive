@@ -4,7 +4,7 @@ import { NavBar } from '../components/NavBar';
 import { CustomSelect } from '../components/CustomSelect';
 import { CurrencyInput } from '../components/CurrencyInput';
 import { Upload, X, Check, Sparkles, Wand2, ListPlus, Undo2, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'motion/react';
 import { apiPost, apiGet, ApiError } from '../lib/api';
 import { useAuth } from '../lib/auth';

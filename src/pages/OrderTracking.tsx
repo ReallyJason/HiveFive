@@ -6,7 +6,7 @@ import { StatusBadge } from '../components/StatusBadge';
 import { useNavigate, useParams, Link } from 'react-router';
 import { useAuth } from '../lib/auth';
 import { apiGet, apiPatch, apiPost, ApiError } from '../lib/api';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import {
   Clock,
   MessageCircle,

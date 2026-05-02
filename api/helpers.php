@@ -139,7 +139,7 @@ function university_from_email(string $email): ?string {
         }
     }
 
-    return null;
+    return 'Not a University student';
 }
 
 /**

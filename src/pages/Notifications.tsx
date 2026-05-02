@@ -12,7 +12,7 @@ import {
   Star,
   Trash2,
 } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { NavBar } from '../components/NavBar';
 import { useAuth } from '../lib/auth';
 import { api, apiGet, apiPatch, ApiError } from '../lib/api';

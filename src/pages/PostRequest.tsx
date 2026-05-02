@@ -5,7 +5,7 @@ import { DatePicker } from '../components/DatePicker';
 import { useNavigate, Navigate } from 'react-router';
 import { ArrowLeft, ArrowRight, Sparkles, HelpCircle, DollarSign, Eye, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { apiGet, apiPost, ApiError } from '../lib/api';
 import { useAuth } from '../lib/auth';
 import { CATEGORIES, BUDGET_RANGES, parseLocalDate } from '../lib/constants';
