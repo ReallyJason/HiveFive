@@ -21,8 +21,9 @@ RUN a2enmod rewrite headers
 # Install PHP extensions for MySQL
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
-# Allow .htaccess overrides
-RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+# Allow .htaccess overrides and set ServerName to suppress AH00558 warning
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \
+    && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Copy the built React app
 COPY --from=frontend /app/build/ /var/www/html/
