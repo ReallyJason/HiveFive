@@ -19,12 +19,6 @@ if (!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
     json_response(['error' => 'Please enter a valid email address'], 400);
 }
 
-// Require .edu domain
-$domain = strtolower(substr($new_email, strrpos($new_email, '@') + 1));
-if (!str_ends_with($domain, '.edu')) {
-    json_response(['error' => 'Only .edu email addresses are allowed'], 400);
-}
-
 // Verify password
 $stmt = $pdo->prepare('SELECT password_hash FROM users WHERE id = ?');
 $stmt->execute([$user_id]);

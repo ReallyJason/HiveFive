@@ -847,10 +847,10 @@ export default function Landing() {
               </div>
               <Mail className="hiw-icon w-7 h-7 text-honey-500" />
               <h3 className="font-sans font-bold text-lg text-charcoal-900 mt-4">
-                Drop your .edu
+                Drop your email
               </h3>
               <p className="text-sm text-charcoal-500 mt-2 leading-relaxed">
-                One email. Instant campus access. Every face on here goes to school with you.
+                One email. Instant access. Start browsing and booking in seconds.
               </p>
             </div>
             <div className="hiw-card bg-cream-50 border border-charcoal-100 rounded-lg p-8 relative">
