@@ -2,31 +2,41 @@
 set -e
 
 # Generate db_config.php from environment variables
-cat > /var/www/html/api/db_config.php <<'PHP'
+# Resolve values at bash level so they're baked into the PHP file.
+# (Apache often strips env vars from PHP, making $_ENV/getenv() unreliable.)
+_DB_HOST="${DB_HOST:-${MYSQLHOST:-127.0.0.1}}"
+_DB_PORT="${DB_PORT:-${MYSQLPORT:-3306}}"
+_DB_NAME="${DB_NAME:-${MYSQLDATABASE:-railway}}"
+_DB_USER="${DB_USER:-${MYSQLUSER:-root}}"
+_DB_PASS="${DB_PASS:-${MYSQLPASSWORD:-}}"
+
+echo "=== DB config: host=$_DB_HOST port=$_DB_PORT db=$_DB_NAME user=$_DB_USER ==="
+
+cat > /var/www/html/api/db_config.php <<PHP
 <?php
 date_default_timezone_set('UTC');
 
-$DB_HOST = $_ENV['DB_HOST'] ?? $_ENV['MYSQLHOST'] ?? getenv('DB_HOST') ?: '127.0.0.1';
-$DB_PORT = $_ENV['DB_PORT'] ?? $_ENV['MYSQLPORT'] ?? getenv('DB_PORT') ?: '3306';
-$DB_NAME = $_ENV['DB_NAME'] ?? $_ENV['MYSQLDATABASE'] ?? getenv('DB_NAME') ?: 'cse442_2026_spring_team_j_db';
-$DB_USER = $_ENV['DB_USER'] ?? $_ENV['MYSQLUSER'] ?? getenv('DB_USER') ?: 'intesarj';
-$DB_PASS = $_ENV['DB_PASS'] ?? $_ENV['MYSQLPASSWORD'] ?? getenv('DB_PASS') ?: '50548218';
+\$DB_HOST = '$_DB_HOST';
+\$DB_PORT = '$_DB_PORT';
+\$DB_NAME = '$_DB_NAME';
+\$DB_USER = '$_DB_USER';
+\$DB_PASS = '$_DB_PASS';
 
 try {
-    $pdo = new PDO(
-        "mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;charset=utf8mb4",
-        $DB_USER,
-        $DB_PASS,
+    \$pdo = new PDO(
+        "mysql:host=\$DB_HOST;port=\$DB_PORT;dbname=\$DB_NAME;charset=utf8mb4",
+        \$DB_USER,
+        \$DB_PASS,
         [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
         ]
     );
-    $pdo->exec("SET time_zone = '+00:00'");
-} catch (PDOException $e) {
+    \$pdo->exec("SET time_zone = '+00:00'");
+} catch (PDOException \$e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Database connection failed']);
+    echo json_encode(['error' => 'Database connection failed: ' . \$e->getMessage()]);
     exit;
 }
 PHP
