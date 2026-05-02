@@ -14,7 +14,7 @@ if (!defined('RESEND_API_KEY')) {
     define('RESEND_API_KEY', getenv('RESEND_API_KEY') ?: '');
 }
 
-define('HIVEFIVE_FROM_EMAIL', 'HiveFive <no-reply@hive.jasonhusoftware.com>');
+define('HIVEFIVE_FROM_EMAIL', 'HiveFive <no-reply@jasonhusoftware.com>');
 
 /**
  * Send an email via Resend API.
