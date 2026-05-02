@@ -1,18 +1,72 @@
 <?php
 /**
- * HiveFive email utility.
+ * HiveFive email utility — powered by Resend.
  *
- * Uses PHP's built-in mail() function. The server must have a working MTA
- * (sendmail / postfix / msmtp). If mail() is unavailable or fails, the
- * function returns false so callers can degrade gracefully.
+ * Uses Resend's REST API (https://resend.com/docs) instead of PHP's
+ * built-in mail(), which doesn't work in containerized environments
+ * like Railway that lack a local MTA.
  *
- * NOTE: Avoid em-dashes, curly quotes, HTML entities, and quoted font names
- * in the template — the CSE aptitude MTA silently drops emails containing
- * certain special characters.
+ * The RESEND_API_KEY is baked into this constant at container startup
+ * via docker-entrypoint.sh, or can be set directly here for local dev.
  */
 
-define('HIVEFIVE_FROM_EMAIL', 'no-reply@jasonhusoftware.com');
-define('HIVEFIVE_FROM_NAME',  'HiveFive');
+if (!defined('RESEND_API_KEY')) {
+    define('RESEND_API_KEY', getenv('RESEND_API_KEY') ?: '');
+}
+
+define('HIVEFIVE_FROM_EMAIL', 'HiveFive <no-reply@jasonhusoftware.com>');
+
+/**
+ * Send an email via Resend API.
+ *
+ * @param string $to      Recipient address
+ * @param string $subject Email subject
+ * @param string $html    HTML body
+ * @return bool           true on success, false on failure
+ */
+function resend_send(string $to, string $subject, string $html): bool {
+    $key = RESEND_API_KEY;
+    if (!$key) {
+        error_log('RESEND_API_KEY is not set — email not sent to ' . $to);
+        return false;
+    }
+
+    $payload = json_encode([
+        'from'    => HIVEFIVE_FROM_EMAIL,
+        'to'     => [$to],
+        'subject' => $subject,
+        'html'    => $html,
+    ]);
+
+    $ch = curl_init('https://api.resend.com/emails');
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $payload,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_HTTPHEADER     => [
+            'Authorization: Bearer ' . $key,
+            'Content-Type: application/json',
+        ],
+    ]);
+
+    $response = curl_exec($ch);
+    $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $error    = curl_error($ch);
+    curl_close($ch);
+
+    if ($error) {
+        error_log("Resend curl error: $error");
+        return false;
+    }
+
+    if ($status < 200 || $status >= 300) {
+        error_log("Resend API error (HTTP $status): $response");
+        return false;
+    }
+
+    return true;
+}
 
 /**
  * Send a verification-code email.
@@ -66,9 +120,5 @@ function send_verification_email(string $to, string $code, string $purpose = 'si
 </body>
 </html>';
 
-    $headers  = "From: " . HIVEFIVE_FROM_NAME . " <" . HIVEFIVE_FROM_EMAIL . ">\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-
-    return @mail($to, $subject, $html, $headers);
+    return resend_send($to, $subject, $html);
 }

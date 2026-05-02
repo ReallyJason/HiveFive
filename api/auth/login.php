@@ -130,8 +130,8 @@ if ($account_age->y >= 1) {
         $response['needs_reverification'] = true;
         $response['past_grace_period'] = $past_grace;
         $response['message'] = $past_grace
-            ? 'Your annual verification has expired. Please verify your .edu email to continue using HiveFive.'
-            : 'It\'s been a year! Please re-verify your .edu email to keep your account active.';
+            ? 'Your annual verification has expired. Please verify your email to continue using HiveFive.'
+            : 'It\'s been a year! Please re-verify your email to keep your account active.';
         json_response($response);
     }
 }

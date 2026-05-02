@@ -32,8 +32,8 @@ if (strlen($first_name) > 50 || strlen($last_name) > 50) {
     json_response(['error' => 'Name fields must be 50 characters or fewer'], 400);
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !str_ends_with($email, '.edu')) {
-    json_response(['error' => 'A valid .edu email is required'], 400);
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    json_response(['error' => 'A valid email is required'], 400);
 }
 
 $mapped_university = university_from_email($email);

@@ -431,12 +431,7 @@ export function Settings() {
       return;
     }
 
-    const domain = emailData.newEmail.split('@')[1]?.toLowerCase() || '';
-    if (!domain.endsWith('.edu')) {
-      setEmailError('Only .edu email addresses are allowed');
-      setEmailSaving(false);
-      return;
-    }
+
 
     try {
       await apiPost('/auth/change-email.php', {
@@ -805,7 +800,7 @@ export function Settings() {
                                 type="email"
                                 value={transferEmail}
                                 onChange={(e) => setTransferEmail(e.target.value)}
-                                placeholder="recipient@state.edu"
+                                placeholder="recipient@email.com"
                                 maxLength={100}
                                 className={`w-full h-11 px-4 bg-cream-50 border rounded-lg focus:outline-none focus:ring-2 focus:ring-honey-500 ${
                                   errors.email ? 'border-red-500' : 'border-charcoal-100'
@@ -1120,7 +1115,7 @@ export function Settings() {
                     <div className="space-y-3">
                       <input
                         type="email"
-                        placeholder="New .edu email address"
+                        placeholder="New email address"
                         value={emailData.newEmail}
                         onChange={(e) => setEmailData({ ...emailData, newEmail: e.target.value })}
                         maxLength={100}

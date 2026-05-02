@@ -41,6 +41,15 @@ try {
 }
 PHP
 
+# Inject Resend API key into mail.php so emails work on Railway
+_RESEND_KEY="${RESEND_API_KEY:-}"
+if [ -n "$_RESEND_KEY" ]; then
+    echo "=== Resend API key detected, injecting into mail.php ==="
+    sed -i "s|define('RESEND_API_KEY', getenv('RESEND_API_KEY') ?: '');|define('RESEND_API_KEY', '$_RESEND_KEY');|" /var/www/html/api/mail.php
+else
+    echo "=== WARNING: RESEND_API_KEY not set — emails will not be sent ==="
+fi
+
 # AI features disabled
 # OPENROUTER_KEY="${OPENROUTER_API_KEY:-$(printenv OPENROUTER_API_KEY 2>/dev/null)}"
 # if [ -n "$OPENROUTER_KEY" ]; then

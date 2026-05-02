@@ -18,8 +18,9 @@ RUN echo "=== Base image MPM state ===" && ls -la /etc/apache2/mods-enabled/mpm_
 # Enable Apache modules
 RUN a2enmod rewrite headers
 
-# Install PHP extensions for MySQL
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+# Install PHP extensions for MySQL and curl (for Resend email API)
+RUN apt-get update && apt-get install -y libcurl4-openssl-dev && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-install pdo pdo_mysql mysqli curl
 
 # Allow .htaccess overrides and set ServerName to suppress AH00558 warning
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \

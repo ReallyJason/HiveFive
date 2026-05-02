@@ -35,7 +35,7 @@ export default function Login() {
 
       // Annual re-verification required
       if (res.needs_reverification) {
-        toast.error(res.message || 'Please re-verify your .edu email to continue.');
+        toast.error(res.message || 'Please re-verify your email to continue.');
         navigate('/verify');
         return;
       }
@@ -135,7 +135,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full h-11 px-3.5 rounded-md border-[1.5px] border-charcoal-200 bg-cream-50 font-sans text-[15px] text-charcoal-900 placeholder:text-charcoal-400 outline-none transition-all focus:border-honey-500 focus:ring-[3px] focus:ring-honey-100"
-                placeholder="your.email@university.edu"
+                placeholder="your.email@example.com"
                 maxLength={100}
                 disabled={submitting}
               />

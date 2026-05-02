@@ -92,9 +92,6 @@ export default function Signup() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return 'Please enter a valid email address.';
     }
-    if (!email.endsWith('.edu')) {
-      return 'HiveFive is exclusively for students with .edu email addresses.';
-    }
     return '';
   };
 
@@ -259,7 +256,7 @@ export default function Signup() {
                     ? 'border-semantic-error bg-red-50 ring-[3px] ring-red-100'
                     : 'border-charcoal-200 focus:border-honey-500 focus:ring-[3px] focus:ring-honey-100'
                 }`}
-                placeholder="you@university.edu"
+                placeholder="you@email.com"
                 maxLength={100}
                 disabled={submitting}
               />
