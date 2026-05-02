@@ -7,7 +7,7 @@ import { apiGet, apiPatch } from '../lib/api';
 import { Avatar } from './Avatar';
 import { ImpersonationBanner } from './ImpersonationBanner';
 import { parseUTC } from '../lib/constants';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import {
   dispatchNotificationsRefresh,
   initInAppSounds,

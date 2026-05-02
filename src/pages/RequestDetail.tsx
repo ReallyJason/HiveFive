@@ -5,7 +5,7 @@ import { Avatar } from '../components/Avatar';
 import { ProposalModal } from '../components/ProposalModal';
 import { apiGet, apiPost, apiPatch, apiDelete, ApiError } from '../lib/api';
 import { useAuth } from '../lib/auth';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { Calendar, DollarSign, Clock, User, CheckCircle2, ArrowLeft, Loader2, MessageCircle, Trash2, Pencil, Save, X, Check, XCircle, Link2, ArrowRight, Star } from 'lucide-react';
 import { CurrencyInput } from '../components/CurrencyInput';
 import { CustomSelect } from '../components/CustomSelect';

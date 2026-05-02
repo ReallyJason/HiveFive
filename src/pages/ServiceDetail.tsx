@@ -2,7 +2,7 @@ import { NavBar } from '../components/NavBar';
 import { useParams, useNavigate } from 'react-router';
 import { apiGet, apiDelete, ApiError } from '../lib/api';
 import { useAuth } from '../lib/auth';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { useState, useEffect } from 'react';
 import { CategoryBadge } from '../components/CategoryBadge';
 import { Avatar } from '../components/Avatar';

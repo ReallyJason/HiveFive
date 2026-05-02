@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X, Calendar, DollarSign } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { CurrencyInput } from './CurrencyInput';
 import { DatePicker } from './DatePicker';
 import { TimePicker } from './TimePicker';

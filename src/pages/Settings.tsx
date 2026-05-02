@@ -9,7 +9,7 @@ import { useTheme } from 'next-themes';
 import { useNavigate, useSearchParams, Navigate } from 'react-router';
 import { useAuth } from '../lib/auth';
 import { api, apiGet, apiPatch, apiPost, ApiError } from '../lib/api';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import { parseUTC } from '../lib/constants';
 import { CharacterLimitHint } from '../components/CharacterLimitHint';
