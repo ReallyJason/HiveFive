@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 # Generate db_config.php from environment variables
 cat > /var/www/html/api/db_config.php <<'PHP'
 <?php
@@ -35,5 +37,22 @@ PHP
 # ...
 # fi
 
-# Start Apache
+# ── Fix "More than one MPM loaded" at runtime ──
+echo "=== MPM fix: removing all MPM modules ==="
+rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf
+echo "=== MPM fix: enabling only mpm_prefork ==="
+ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load
+if [ -f /etc/apache2/mods-available/mpm_prefork.conf ]; then
+    ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+fi
+echo "=== MPM modules now enabled: ==="
+ls -la /etc/apache2/mods-enabled/mpm_* 2>/dev/null || echo "NONE"
+
+# ── Apache listens on port 80 (Railway target port must be set to 80) ──
+echo "=== Apache listening on port 80 ==="
+
+# Verify config before starting
+apache2ctl configtest 2>&1 || true
+
+# Start Apache on port 80
 exec apache2-foreground
