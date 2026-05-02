@@ -39,7 +39,8 @@ interface UserData {
   first_name: string;
   last_name: string;
   profile_image: string | null;
-  major: string;
+  job: string;
+  is_student: boolean;
   bio: string;
 }
 
@@ -383,10 +384,16 @@ function UserPreview({
         <div style={titleStyle}>{fullName}</div>
         <div style={metaStyle}>
           <span>@{user.username}</span>
-          {user.major && (
+          {user.job && (
             <>
               <span style={{ margin: '0 4px' }}>·</span>
-              <span>{user.major}</span>
+              <span>{user.job}</span>
+            </>
+          )}
+          {!user.job && user.is_student && (
+            <>
+              <span style={{ margin: '0 4px' }}>·</span>
+              <span>Student</span>
             </>
           )}
         </div>

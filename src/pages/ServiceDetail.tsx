@@ -46,7 +46,8 @@ interface ApiServiceDetail {
   provider_last_name: string;
   provider_username: string;
   provider_bio: string | null;
-  provider_major: string;
+  provider_job: string;
+  provider_is_student: boolean;
   provider_university: string;
   provider_profile_image: string | null;
   cosmetics?: CosmeticsPayload;

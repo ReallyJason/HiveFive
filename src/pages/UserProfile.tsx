@@ -22,8 +22,8 @@ interface ProviderData {
   username: string;
   role?: string;
   university: string;
-  major: string;
-  year: string | null;
+  job: string;
+  is_student: boolean;
   bio: string | null;
   profile_image: string | null;
   member_since: string;
@@ -346,9 +346,14 @@ export function UserProfile() {
                       <ProfileBadge badge={provider.cosmetics?.badge} />
                     </div>
                     <div className="text-sm text-charcoal-600 mb-3 space-y-1">
-                      {(provider.major || provider.year) && (
+                      {provider.job && (
                         <div className="flex items-center" style={{ gap: 4 }}>
-                          {[provider.major, provider.year].filter(Boolean).join(' \u2022 ')}
+                          {provider.job} {provider.is_student ? '• Student' : ''}
+                        </div>
+                      )}
+                      {!provider.job && provider.is_student && (
+                        <div className="flex items-center" style={{ gap: 4 }}>
+                          Student
                         </div>
                       )}
                       {provider.university && (

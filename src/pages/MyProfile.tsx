@@ -353,9 +353,14 @@ export function MyProfile() {
                       <ProfileBadge badge={user?.cosmetics?.badge} />
                     </div>
                     <div className="text-sm text-charcoal-600 mb-3 space-y-1">
-                      {(user?.major || user?.year) && (
+                      {user?.job && (
                         <div className="flex items-center" style={{ gap: 4 }}>
-                          {[user?.major, user?.year].filter(Boolean).join(' \u2022 ')}
+                          {user.job} {user.is_student ? '• Student' : ''}
+                        </div>
+                      )}
+                      {!user?.job && user?.is_student && (
+                        <div className="flex items-center" style={{ gap: 4 }}>
+                          Student
                         </div>
                       )}
                       {university && (

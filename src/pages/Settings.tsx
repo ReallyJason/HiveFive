@@ -58,8 +58,8 @@ export function Settings() {
     name: '',
     email: '',
     university: '',
-    major: '',
-    year: '',
+    job: '',
+    isStudent: false,
   });
   const [accountSaving, setAccountSaving] = useState(false);
   const [accountError, setAccountError] = useState<string | null>(null);
@@ -107,8 +107,8 @@ export function Settings() {
         name: `${user.first_name} ${user.last_name}`.trim(),
         email: user.email,
         university: user.university || '',
-        major: user.major || '',
-        year: user.year || '',
+        job: user.job || '',
+        isStudent: user.is_student || false,
       });
       setNotifications({
         ordersPayments: user.notify_orders ?? true,
@@ -329,8 +329,8 @@ export function Settings() {
         first_name,
         last_name,
         university: universityToSave,
-        major: accountData.major,
-        year: accountData.year || null,
+        job: accountData.job,
+        is_student: accountData.isStudent ? 1 : 0,
       });
 
       await refreshUser();
@@ -663,35 +663,30 @@ export function Settings() {
 
                   <div>
                     <label className="block font-sans font-bold text-charcoal-900 mb-2 text-sm">
-                      Major
+                      Job Title / Occupation
                     </label>
                     <input
                       type="text"
-                      value={accountData.major}
-                      onChange={(e) => setAccountData({ ...accountData, major: e.target.value })}
-                      placeholder="e.g. Computer Science"
+                      value={accountData.job}
+                      onChange={(e) => setAccountData({ ...accountData, job: e.target.value })}
+                      placeholder="e.g. Software Engineer"
                       maxLength={100}
                       className="w-full h-11 px-4 bg-cream-50 border border-charcoal-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-honey-500"
                     />
-                    <CharacterLimitHint current={accountData.major.length} max={100} />
+                    <CharacterLimitHint current={accountData.job.length} max={100} />
                   </div>
 
-                  <div>
-                    <label className="block font-sans font-bold text-charcoal-900 mb-2 text-sm">
-                      Academic Year
+                  <div className="flex items-center gap-3 pt-2">
+                    <input
+                      type="checkbox"
+                      id="accountIsStudent"
+                      checked={accountData.isStudent}
+                      onChange={(e) => setAccountData({ ...accountData, isStudent: e.target.checked })}
+                      className="w-4 h-4 text-honey-600 rounded focus:ring-honey-500 border-charcoal-300"
+                    />
+                    <label htmlFor="accountIsStudent" className="font-sans font-bold text-sm text-charcoal-900 cursor-pointer select-none">
+                      I am currently a student
                     </label>
-                    <select
-                      value={accountData.year}
-                      onChange={(e) => setAccountData({ ...accountData, year: e.target.value })}
-                      className="w-full h-11 px-4 bg-cream-50 border border-charcoal-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-honey-500 text-charcoal-900"
-                    >
-                      <option value="">Select year</option>
-                      <option value="Freshman">Freshman</option>
-                      <option value="Sophomore">Sophomore</option>
-                      <option value="Junior">Junior</option>
-                      <option value="Senior">Senior</option>
-                      <option value="Graduate">Graduate</option>
-                    </select>
                   </div>
 
                   <div className="pt-4">

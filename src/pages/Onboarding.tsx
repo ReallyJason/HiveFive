@@ -13,8 +13,8 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const { user, loading: authLoading, refreshUser } = useAuth();
   const [bio, setBio] = useState('');
-  const [major, setMajor] = useState('');
-  const [year, setYear] = useState('');
+  const [job, setJob] = useState('');
+  const [isStudent, setIsStudent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -46,15 +46,11 @@ export default function Onboarding() {
     }
   };
 
-  const canSubmit = year !== '' && major.trim().length > 0;
+  const canSubmit = job.trim().length > 0;
 
   const handleComplete = async () => {
-    if (!year) {
-      setError('Please select your academic year');
-      return;
-    }
-    if (!major.trim()) {
-      setError("Please enter what you're studying");
+    if (!job.trim()) {
+      setError("Please enter your job title or occupation");
       return;
     }
 
@@ -62,8 +58,8 @@ export default function Onboarding() {
     setError(null);
     try {
       await apiPost('/users/onboarding.php', {
-        major: major.trim(),
-        year,
+        job: job.trim(),
+        is_student: isStudent ? 1 : 0,
         bio: bio.trim(),
       });
       await refreshUser();
@@ -147,27 +143,30 @@ export default function Onboarding() {
 
             <div>
               <label className="block font-sans font-medium text-sm text-charcoal-700 mb-1.5">
-                What are you studying? <span className="text-red-400">*</span>
+                Job Title / Occupation <span className="text-red-400">*</span>
               </label>
               <input
                 type="text"
-                value={major}
-                onChange={(e) => setMajor(e.target.value)}
-                placeholder="e.g. Computer Science"
+                value={job}
+                onChange={(e) => setJob(e.target.value)}
+                placeholder="e.g. Software Engineer"
                 maxLength={100}
                 className="w-full h-11 px-3.5 rounded-md border-[1.5px] border-charcoal-200 bg-cream-50 font-sans text-[15px] text-charcoal-900 placeholder:text-charcoal-400 outline-none transition-all focus:border-honey-500 focus:ring-[3px] focus:ring-honey-100"
               />
-              <CharacterLimitHint current={major.length} max={100} />
+              <CharacterLimitHint current={job.length} max={100} />
             </div>
 
-            <div>
-              <label className="block font-sans font-medium text-sm text-charcoal-700 mb-1.5">Year <span className="text-red-400">*</span></label>
-              <CustomSelect
-                value={year}
-                onChange={(value) => setYear(value)}
-                options={['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']}
-                placeholder="Select"
+            <div className="flex items-center gap-3 pt-2">
+              <input
+                type="checkbox"
+                id="isStudent"
+                checked={isStudent}
+                onChange={(e) => setIsStudent(e.target.checked)}
+                className="w-4 h-4 text-honey-600 rounded focus:ring-honey-500 border-charcoal-300"
               />
+              <label htmlFor="isStudent" className="font-sans font-medium text-sm text-charcoal-700 cursor-pointer select-none">
+                I am currently a student
+              </label>
             </div>
           </div>
 

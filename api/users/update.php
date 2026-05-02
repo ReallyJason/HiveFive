@@ -17,8 +17,8 @@ $allowed = [
     'first_name',
     'last_name',
     'bio',
-    'major',
-    'year',
+    'job',
+    'is_student',
     'university',
     'profile_image',
     'wants_to_offer',
@@ -41,7 +41,7 @@ $text_limits = [
     'first_name' => 50,
     'last_name'  => 50,
     'bio'        => 200,
-    'major'      => 100,
+    'job'        => 100,
 ];
 
 foreach ($allowed as $field) {
@@ -92,7 +92,7 @@ $stmt->execute($params);
 // Return updated user
 $stmt = $pdo->prepare("
     SELECT
-        id, email, username, first_name, last_name, bio, major, year, university,
+        id, email, username, first_name, last_name, bio, job, is_student, university,
         profile_image, hivecoin_balance, verified, onboarding_done,
         wants_to_offer, wants_to_find,
         notify_orders, notify_messages, notify_proposals,
@@ -111,8 +111,8 @@ json_response(['user' => [
     'first_name'       => $user['first_name'],
     'last_name'        => $user['last_name'],
     'bio'              => $user['bio'],
-    'major'            => $user['major'],
-    'year'             => $user['year'],
+    'job'              => $user['job'],
+    'is_student'       => (bool) $user['is_student'],
     'university'       => $resolved_university,
     'profile_image'    => $user['profile_image'],
     'hivecoin_balance' => (float) $user['hivecoin_balance'],

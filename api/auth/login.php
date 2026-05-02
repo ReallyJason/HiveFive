@@ -16,7 +16,7 @@ if (!$email || !$password) {
 
 $stmt = $pdo->prepare(
     'SELECT id, email, username, password_hash, first_name, last_name,
-            bio, major, year, university, profile_image,
+            bio, job, is_student, university, profile_image,
             hivecoin_balance, verified, last_verified_at, onboarding_done,
             active_frame_id, active_badge_id, active_theme_id,
             created_at, deactivated_at,
