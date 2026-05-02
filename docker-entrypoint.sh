@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 # Generate db_config.php from environment variables
 cat > /var/www/html/api/db_config.php <<'PHP'
 <?php
@@ -35,11 +37,25 @@ PHP
 # ...
 # fi
 
-# Configure Apache to listen on Railway's $PORT (default 80)
-if [ -n "$PORT" ]; then
-    sed -i "s/Listen 80/Listen $PORT/" /etc/apache2/ports.conf
-    sed -i "s/<VirtualHost \*:80>/<VirtualHost *:$PORT>/" /etc/apache2/sites-enabled/000-default.conf
+# ── Fix "More than one MPM loaded" at runtime ──
+# Remove ALL MPM module symlinks, then enable ONLY mpm_prefork
+echo "=== MPM fix: removing all MPM modules ==="
+rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf
+echo "=== MPM fix: enabling only mpm_prefork ==="
+ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load
+if [ -f /etc/apache2/mods-available/mpm_prefork.conf ]; then
+    ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
 fi
+echo "=== MPM modules now enabled: ==="
+ls -la /etc/apache2/mods-enabled/mpm_* 2>/dev/null || echo "NONE"
+echo "=== Running config test ==="
+apache2ctl configtest 2>&1 || true
+
+# ── Configure Apache to listen on Railway's $PORT (default 80) ──
+LISTEN_PORT="${PORT:-80}"
+echo "=== Configuring Apache to listen on port $LISTEN_PORT ==="
+sed -i "s/Listen 80/Listen $LISTEN_PORT/" /etc/apache2/ports.conf
+sed -i "s/<VirtualHost \*:80>/<VirtualHost *:$LISTEN_PORT>/" /etc/apache2/sites-enabled/000-default.conf
 
 # Start Apache
 exec apache2-foreground

@@ -12,11 +12,8 @@ RUN npm run build
 # Stage 2: PHP + Apache serving both frontend and API
 FROM php:8.2-apache
 
-# Fix "More than one MPM loaded" error
-# Remove ALL MPM symlinks first, then enable only mpm_prefork
-RUN rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf \
-    && ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load \
-    && ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+# Debug: show what MPM modules the base image ships with
+RUN echo "=== Base image MPM state ===" && ls -la /etc/apache2/mods-enabled/mpm_* 2>/dev/null && echo "==="
 
 # Enable Apache modules
 RUN a2enmod rewrite headers
